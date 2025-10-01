@@ -78,7 +78,7 @@ We need people to research and document **what makes forms accessible**. Not the
 
 Dive into HTML form accessibility. Read the specs, test with screen readers, find real broken forms and document what they need. Write it in plain language.
 
-Check out our [research wiki](https://comfort-mode-toolkit.github.io/wiki/Research/intro/) to see how to submit your findings. No expertise required - if you can spot a problem and explain how to fix it, that helps.
+Check out our [research wiki](https://comfort-mode-toolkit.github.io/wiki/research/intro/) to see how to submit your findings. No expertise required - if you can spot a problem and explain how to fix it, that helps.
 
 GitHub issues, wiki edits, random notes in a text file - all welcome.
 
