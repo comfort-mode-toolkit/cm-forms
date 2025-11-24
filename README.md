@@ -1,32 +1,28 @@
-# cm-forms 📝
+# cm-forms
 
-> You build the form. We make it accessible.
+> Catches the mechanical errors so you can focus on the meaningful content.
 
-Ever spent hours coding a perfect signup form, only to realize screen readers can't understand it? Yeah, that's frustrating.
+A tool that fixes what it can verify and warns about what needs your judgment.
 
 ## The Problem
 
-Forms are everywhere - logins, checkouts, contact pages, surveys. But most forms create accessibility barriers:
-- Inputs without proper labels
-- Buttons that just say "Submit" (submit what?)
-- Error messages that aren't linked to the fields
-- Required fields with no indication they're required
+Forms lock people out. Missing labels, broken connections, unclear requirements—these aren't just WCAG violations, they're actual barriers to logging in, checking out, getting help, applying for jobs.
 
-When the structure isn't there, screen reader users have to fill in the gaps. That's not okay.
+The frustrating part? Some of these errors are purely mechanical. A label needs to connect to its input via matching `for` and `id` attributes. That's not subjective—it's either correct or it isn't.
 
-## The Solution
+But fixing these mechanical errors manually is tedious, error-prone, and scales poorly when you're maintaining multiple projects.
 
-cm-forms is like [Black](https://github.com/psf/black) for HTML forms. Point it at your HTML files, and it automatically adds the accessibility attributes everyone needs.
+## What cm-forms Does
 
-Note: This isn't an all in one solution. It's a tool to help you make your forms accessible. You still need to test them with screen readers and make sure they work for everyone.
+cm-forms handles the mechanical parts of form accessibility so you can focus on the parts that actually require your judgment and context.
 
 ```bash
 cm-forms signup.html
 ```
 
 ```
-
-NOTICE: This is a pre-alpha planning release (v0.0.1). No guarantees, minimal features live. Visit https://github.com/comfort-mode-toolkit/cm-forms/ to contribute or share feedback.
+NOTICE: Pre-alpha planning release (v0.0.1). Minimal features, no guarantees.
+Visit https://github.com/comfort-mode-toolkit/cm-forms/ for details.
 
 Processed: signup.html -> signup_cm.html
 - Added label to <input id="username">
@@ -35,63 +31,112 @@ Processed: signup.html -> signup_cm.html
 - Added aria-required="true" to <input id="password">
 - WARNING: <button> label "Submit" is ambiguous, developer review needed
 
-For more info and feedback, visit: https://github.com/comfort-mode-toolkit/cm-forms/
+For feedback: https://github.com/comfort-mode-toolkit/cm-forms/
 ```
 
-That's it. Seriously.
+It catches obvious structural problems and warns you about things that need your attention. That's it.
 
-## What It Does
+## What It Actually Fixes
 
-- Finds all forms in your HTML files
-- Adds ARIA labels, roles, and required attributes automatically
-- Asks you when things are ambiguous (we can't read your mind!)
-- Explains what changed and why
-- Makes your forms work for everyone
+cm-forms only automates things that meet two criteria:
+1. Can be verified as 100% correct by reading the code
+2. Have zero risk of breaking functionality or making assumptions about context
 
-Think of it as a helpful friend who knows WCAG guidelines and saves you hours of tedious work.
+Currently that means:
+- Linking labels to inputs when the connection is unambiguous
+- Adding `aria-required` to inputs that already have the `required` attribute
+- Flagging generic button text that needs clarification
 
-## Current Status
+That's a small list on purpose.
 
-**🔬 Research Phase**
+## What It Doesn't Do
 
-We're figuring out the best way to build this. What we're exploring:
-- Which fixes are always safe to auto-apply
-- When we should ask instead of assuming
-- How to explain accessibility without overwhelming people
-- What forms need most in real projects
+cm-forms will never:
+- Generate label text from field names (guessing "email_addr" means "Email Address" is making assumptions)
+- Write error messages (we don't know your application's tone or what will help your users)
+- Modify existing labels (we can't know if you wrote them that way intentionally)
+- Promise your form is accessible (structural correctness is necessary but not sufficient)
+- Replace testing with actual users
 
-## Want to Help? Go Down the Rabbit Hole
+Think of it like a spell checker: it catches "teh" but can't tell you if your sentence makes sense. Useful, but not the whole job.
 
-We need people to research and document **what makes forms accessible**. Not theory - practical stuff.
+## Why This Approach?
 
-**What we're looking for:**
+We've seen accessibility automation that promises the moon and delivers harm. Tools that slap `aria-label="button"` on everything and call it accessible. Overlays that make things worse for the people they claim to help.
 
-- **Best practices**: What should every form have? (real examples, not just "add labels")
-- **Risk areas**: When could auto-fixing break things or make wrong assumptions?
-- **Edge cases**: Multi-step forms, dynamic forms, custom controls - what's tricky?
-- **Testing insights**: How do screen reader users actually interact with forms?
-- **Pattern library**: What are the correct ARIA patterns for different form types?
+We'd rather catch 20% of errors safely than attempt 80% and cause harm.
 
-**How to contribute:**
+The philosophy: automate the tedious mechanical stuff, give you clear warnings about judgment calls, and be honest about what requires human context.
 
-Dive into HTML form accessibility. Read the specs, test with screen readers, find real broken forms and document what they need. Write it in plain language.
+## Current Status: Research Phase
 
-Check out our [research wiki](https://comfort-mode-toolkit.github.io/wiki/research/intro/) to see how to submit your findings. No expertise required - if you can spot a problem and explain how to fix it, that helps.
+Right now cm-forms is in active research. We're figuring out:
+- Which form errors can be detected reliably through static analysis
+- Which fixes are genuinely safe to automate vs. which require context
+- How to communicate uncertainty without overwhelming developers
+- What the failure modes of form automation look like
 
-GitHub issues, wiki edits, random notes in a text file - all welcome.
+v0.0.1 is intentionally limited. We're starting small and being cautious.
 
-## why forms?
+## How to Contribute
 
-Forms are everywhere. Login pages, checkouts, contact forms, surveys. When forms have accessibility barriers, people get locked out of important things.
+We need people with different perspectives:
 
-Good news: form accessibility has clear patterns. Bad news: doing it manually is tedious and easy to mess up.
+**Developers:** Test it on real forms. Tell us what breaks, what helps, what's confusing. Run it on open source projects and report findings.
 
-Let's automate the tedious parts.
+**People who use assistive technology:** Tell us what actually matters. What makes forms unusable vs. just annoying? What warnings would you want developers to see?
 
-## part of comfort mode toolkit
+**Accessibility professionals:** Tell us where we're being naive. What are we missing? What's dangerous about this approach?
 
-cm-forms is part of the [comfort mode toolkit](https://github.com/comfort-mode-toolkit) – tools that make the web more comfortable for everyone.
+**Researchers:** Help us understand the landscape. What do studies tell us about common form errors? What's evidence vs. speculation?
+
+**Beginners:** Ask questions. If our documentation doesn't make sense, that means it needs work.
+
+### Research We Need
+
+We're documenting what can and cannot be safely automated. This means:
+- Finding patterns in real-world forms (both broken and accessible)
+- Testing edge cases (dynamic forms, multi-step flows, custom controls)
+- Understanding how screen readers interpret different markup patterns
+- Identifying where automation typically goes wrong
+
+Check out our [research documentation](https://github.com/comfort-mode-toolkit/cm-forms/blob/main/RESEARCH.md) for current findings and how to contribute.
+
+## Installation
+
+Not ready for production use. If you want to experiment:
+
+```bash
+pip install cm-forms  # Coming soon
+```
+
+Or clone and install locally:
+```bash
+git clone https://github.com/comfort-mode-toolkit/cm-forms.git
+cd cm-forms
+pip install -e .
+```
+
+## Why Forms?
+
+Forms are everywhere: logins, checkouts, contact pages, surveys, job applications. When forms have accessibility barriers, people get locked out of essential services.
+
+The good news: form accessibility follows clear patterns. There are mechanical requirements that can be verified.
+
+The bad news: doing it manually is tedious and easy to mess up, especially across multiple projects.
+
+Let's automate the tedious parts so developers can focus on the meaningful parts—like writing labels that actually help people understand what to enter.
+
+## Part of Comfort Mode Toolkit
+
+cm-forms is part of the [Comfort Mode Toolkit](https://github.com/comfort-mode-toolkit)—tools that bridge the gap between wanting to build accessible sites and having the time/expertise to learn every detail of WCAG.
+
+Other tools:
+- [cm-colors](https://github.com/comfort-mode-toolkit/cm-colors): You pick your colors, we make them readable
 
 ---
 
-*Simple tools for a more accessible web.*
+**Questions? Concerns? Think we're approaching this wrong?**  
+Open an issue. We're trying to figure this out and need honest feedback about what works and what doesn't.
+
+*Building bridges across the accessibility gap—one small, honest tool at a time.*
