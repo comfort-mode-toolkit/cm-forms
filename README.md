@@ -6,38 +6,36 @@ Ever spent hours coding a perfect signup form, only to realize screen readers ca
 
 ## The Problem
 
-Forms are everywhere - logins, checkouts, contact pages, surveys. But most forms are accessibility nightmares:
+Forms are everywhere - logins, checkouts, contact pages, surveys. But most forms create accessibility barriers:
 - Inputs without proper labels
 - Buttons that just say "Submit" (submit what?)
 - Error messages that aren't linked to the fields
 - Required fields with no indication they're required
 
-People using screen readers? They're guessing. That's not okay.
+When the structure isn't there, screen reader users have to fill in the gaps. That's not okay.
 
 ## The Solution
 
 cm-forms is like [Black](https://github.com/psf/black) for HTML forms. Point it at your HTML files, and it automatically adds the accessibility attributes everyone needs.
 
+Note: This isn't an all in one solution. It's a tool to help you make your forms accessible. You still need to test them with screen readers and make sure they work for everyone.
+
 ```bash
-cm-forms .
+cm-forms signup.html
 ```
 
 ```
-🔍 Analyzing 5 HTML files...
 
-Found 3 forms with 12 inputs
+NOTICE: This is a pre-alpha planning release (v0.0.1). No guarantees, minimal features live. Visit https://github.com/comfort-mode-toolkit/cm-forms/ to contribute or share feedback.
 
-✓ Auto-fixed:
-  • Added aria-required to 8 required fields
-  • Linked 3 error messages with aria-describedby
-  • Connected 12 labels to their inputs
+Processed: signup.html -> signup_cm.html
+- Added label to <input id="username">
+- Added label to <input id="email">
+- Added aria-required="true" to <input id="email">
+- Added aria-required="true" to <input id="password">
+- WARNING: <button> label "Submit" is ambiguous, developer review needed
 
-⚠ Needs your input:
-  Button on line 45 says "Submit" - that's vague!
-  Suggest: "Create account" or "Sign up" ?
-  
-✓ Modified 23 elements across 3 files
-✓ Your forms are now more accessible!
+For more info and feedback, visit: https://github.com/comfort-mode-toolkit/cm-forms/
 ```
 
 That's it. Seriously.
@@ -84,7 +82,7 @@ GitHub issues, wiki edits, random notes in a text file - all welcome.
 
 ## why forms?
 
-Forms are everywhere. Login pages, checkouts, contact forms, surveys. When they're not accessible, people get locked out of important things.
+Forms are everywhere. Login pages, checkouts, contact forms, surveys. When forms have accessibility barriers, people get locked out of important things.
 
 Good news: form accessibility has clear patterns. Bad news: doing it manually is tedious and easy to mess up.
 
@@ -96,4 +94,4 @@ cm-forms is part of the [comfort mode toolkit](https://github.com/comfort-mode-t
 
 ---
 
-*Simple tools for accessible web. No expertise required.*
+*Simple tools for a more accessible web.*

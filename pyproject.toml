@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cm-forms"
+dynamic = ["version"]
+description = "You code the form, we make it accessible"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "GPL-3.0"}
+keywords = ["accessibility", "wcag", "html", "forms", "a11y"]
+authors = [
+  {name = "Lalitha A R"}
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Text Processing :: Markup :: HTML",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "click>=8.1.0",
+  "rich>=13.0.0",
+  "beautifulsoup4>=4.12.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/comfort-mode-toolkit/cm-forms"
+Repository = "https://github.com/comfort-mode-toolkit/cm-forms"
+Issues = "https://github.com/comfort-mode-toolkit/cm-forms/issues"
+
+[project.scripts]
+cm-forms = "cm_forms.cli:main"
